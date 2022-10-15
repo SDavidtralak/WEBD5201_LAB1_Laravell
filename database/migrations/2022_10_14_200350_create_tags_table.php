@@ -13,13 +13,27 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
+
             $table->id();
-            $table->integer('post_id');
-            $table->integer('user_id');
-            $table->string('body');
+
+            $table->string('name')->unique();
+
             $table->timestamps();
+
         });
+
+        Schema::create('post_tag', function (Blueprint $table) {
+
+            $table->integer('post_id');
+
+            $table->integer('tag_id');
+
+            $table->primary(['post_id', 'tag_id']);
+
+         });
+
+
     }
 
     /**
@@ -29,6 +43,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('tags');
+        Schema::dropIfExists('post_tag');
+
     }
 };

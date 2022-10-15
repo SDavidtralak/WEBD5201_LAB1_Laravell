@@ -7,7 +7,15 @@
 
     {{$post->body}}
 
-
+    @if (count($post->tags))
+    <ul>
+        @foreach ($post->tags as $tag )
+            <a href="/posts/tags/{{$tag->name}}">
+            <li>{{$tag->name}}</li>
+            </a>
+        @endforeach
+    </ul>
+    @endif
     <hr>
     <div class="comments">
 
